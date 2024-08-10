@@ -1,0 +1,7 @@
+class Solution {
+    public Pair<Long, Long> getMinMax(int[] arr) {
+        Arrays.sort(arr);
+        int n = arr.length;
+        return arr[0],arr[n-1];
+    }
+}
