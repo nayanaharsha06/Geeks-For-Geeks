@@ -1,0 +1,13 @@
+// User function Template for Java
+
+class Solution {
+    public int findKRotation(List<Integer> arr) {
+        for(int i = 1; i <= arr.size() - 1 ; i++){
+            if(arr.get(i-1) > arr.get(i)){
+                return i;
+            }
+        }
+        
+        return 0;
+    }
+}
