@@ -1,0 +1,21 @@
+class Solution {
+    public int rowWithMax1s(int arr[][]) {
+        int max1sRow = -1;
+        int max1sCount = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            int count1s = 0;
+            for (int j = 0; j < arr[i].length; j++) {
+                if (arr[i][j] == 1) {
+                    count1s++;
+                }
+            }
+            // Update if current row has more 1s
+            if (count1s > max1sCount) {
+                max1sCount = count1s;
+                max1sRow = i;
+            }
+        }
+        return max1sRow;
+    }
+}
