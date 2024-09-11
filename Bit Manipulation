@@ -1,0 +1,12 @@
+
+// User function Template for Java
+
+class Solution {
+    static void bitManipulation(int num, int i) {
+        // code here
+        int a=(num & (1<<i-1))==0?0:1;
+        int b=num|(1<<i-1);
+        int c=num & ~(1<<i-1);
+        System.out.print(a+" "+b+" "+c);
+    }
+}
