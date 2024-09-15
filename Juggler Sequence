@@ -1,0 +1,44 @@
+//{ Driver Code Starts
+// Initial Template for Java
+
+import java.io.*;
+import java.util.*;
+
+class GFG {
+    public static void main(String args[]) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(in.readLine());
+        while (t-- > 0) {
+            long n = Long.parseLong(in.readLine());
+
+            Solution ob = new Solution();
+            List<Long> ans = new ArrayList<>();
+            StringBuilder out = new StringBuilder();
+            ans = ob.jugglerSequence(n);
+            for (int i = 0; i < ans.size(); i++) out.append(ans.get(i) + " ");
+            System.out.println(out);
+        }
+    }
+}
+// } Driver Code Ends
+
+
+
+
+class Solution {
+    static List<Long> jugglerSequence(long n) {
+        List<Long> arr = new ArrayList<>();
+        arr.add(n);  // Start the sequence with n
+
+        while (n != 1) {  // Continue until n becomes 1
+            if (n % 2 == 0) {  // If the number is even
+                n = (long) Math.pow(n, 0.5);  // Take the square root
+            } else {  // If the number is odd
+                n = (long) Math.pow(n, 1.5);  // Take the power of 1.5
+            }
+            arr.add(n);  // Add the next value to the list
+        }
+
+        return arr;  // Return the list containing the sequence
+    }
+}
