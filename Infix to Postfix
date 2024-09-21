@@ -1,0 +1,68 @@
+//{ Driver Code Starts
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br =
+            new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine().trim());
+        while (t-- > 0) {
+            System.out.println(
+                new Solution().infixToPostfix(br.readLine().trim()));
+        }
+    }
+}
+// } Driver Code Ends
+class Solution {
+    // Function to convert an infix expression to a postfix expression.
+    public static int priority(char i){
+        if(i == '^'){
+            return 3;
+        }
+        else if( i== '*' || i =='/'){
+            return 2;
+        }
+        else if(i == '+' || i == '-'){
+            return 1;
+        }
+
+            return -1;
+    }
+    public static String infixToPostfix(String exp) {
+        Stack<Character> st = new Stack<>();
+        int n = exp.length();
+        String ans ="";
+        int i=0;
+        while(i < n){
+            char c = exp.charAt(i);
+            if(c == '('){
+                st.push(c);
+            }
+            else if(c== ')'){
+                while(!st.isEmpty() && st.peek() != '('){
+                    ans += st.peek();
+                    st.pop();
+                }
+                st.pop();
+            }
+            else if(Character.isLetterOrDigit(c)){
+                ans += c;
+            }
+            else {
+                while(!st.isEmpty() && priority(c) <= priority(st.peek())){
+                    ans += st.pop();
+                }
+                st.push(c);
+            }
+            i++;
+        }
+        while(!st.isEmpty()){
+            ans += st.peek();
+            st.pop();
+        }
+        return ans;
+    }
+}
