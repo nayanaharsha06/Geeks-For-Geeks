@@ -1,0 +1,67 @@
+//{ Driver Code Starts
+//Initial Template for Java
+
+import java.io.*;
+import java.util.*;
+class GfG
+{
+    public static void main (String[] args)
+    {
+        
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        
+        while(t-- > 0)
+        {
+            String s = sc.next ();
+            int k = sc.nextInt();
+    		System.out.println (new Solution().substrCount (s, k));
+        }
+        
+    }
+}
+// } Driver Code Ends
+
+
+
+class Solution
+{
+    // Function to count substrings with at most K distinct characters
+    private long countAtMostKDistinct(String S, int K) {
+        int n = S.length();
+        int left = 0;
+        long count = 0;
+        
+        // HashMap to store the frequency of characters in the current window
+        HashMap<Character, Integer> freqMap = new HashMap<>();
+        
+        // Sliding window approach
+        for (int right = 0; right < n; right++) {
+            char ch = S.charAt(right);
+            freqMap.put(ch, freqMap.getOrDefault(ch, 0) + 1);
+            
+            // If the number of distinct characters exceeds K, shrink the window
+            while (freqMap.size() > K) {
+                char leftChar = S.charAt(left);
+                freqMap.put(leftChar, freqMap.get(leftChar) - 1);
+                if (freqMap.get(leftChar) == 0) {
+                    freqMap.remove(leftChar);
+                }
+                left++;  // Move the left pointer to the right
+            }
+            
+            // Count the number of valid substrings ending at 'right'
+            count += right - left + 1;
+        }
+        
+        return count;
+    }
+
+    // Function to count substrings with exactly K distinct characters
+    long substrCount(String S, int K) {
+        // Number of substrings with exactly K distinct characters is:
+        // count of substrings with at most K distinct characters
+        // minus count of substrings with at most (K-1) distinct characters
+        return countAtMostKDistinct(S, K) - countAtMostKDistinct(S, K - 1);
+    }
+}
